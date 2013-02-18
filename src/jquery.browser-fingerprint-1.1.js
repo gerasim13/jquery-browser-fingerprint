@@ -1,3 +1,5 @@
+// fork from https://github.com/NEWECX/jquery-browser-fingerprint
+
 // Browser fingerprinting is a technique to "mark" anonymous users using JS
 // (or other things).  To build an "identity" of sorts the browser is queried
 // for a list of its plugins, the screen size and several other things, then
@@ -23,8 +25,7 @@
 
 ( function($) {
 
-  // Calling `jQuery.fingerprint()` will return an MD5 hash, i.e. said
-  // fingerprint.
+  // Calling `jQuery.fingerprint()` will return a string of useragent properties
 
   $.fingerprint = function() {
 
