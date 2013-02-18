@@ -40,7 +40,6 @@
     // * the list of all installed plugins (we're using their names,
     //    descriptions, mime types and file name extensions here)
     function _raw() {
-      // That string is the return value.
       return [
         navigator.userAgent,
         [ screen.height, screen.width, screen.colorDepth ].join("x"),
@@ -59,21 +58,7 @@
       ].join("###");
     }
 
-    // `_md5()` computes a MD5 hash using [md5-js](http://github.com/wbond/md5-js/).
-    function _md5() {
-      if ( typeof window.md5 === "function" ) {
-        // The return value is the hashed fingerprint string.
-        return md5( _raw() );
-      }
-      else {
-        // If `window.md5()` isn't available, an error is thrown.
-        throw "md5 unavailable, please get it from http://github.com/wbond/md5-js/";
-      }
-    }
-
-    // And, since I'm lazy, calling `$.fingerprint()` will return the hash
-    // right away, without the need for any other calls.
-    return _md5();
-  }
+    return _raw();
+  };
 
 })(jQuery);
