@@ -1,3 +1,5 @@
+// fork from https://github.com/NEWECX/jquery-browser-fingerprint
+
 // Browser fingerprinting is a technique to "mark" anonymous users using JS
 // (or other things).  To build an "identity" of sorts the browser is queried
 // for a list of its plugins, the screen size and several other things, then
@@ -23,8 +25,7 @@
 
 ( function($) {
 
-  // Calling `jQuery.fingerprint()` will return an MD5 hash, i.e. said
-  // fingerprint.
+  // Calling `jQuery.fingerprint()` will return a string of useragent properties
 
   $.fingerprint = function() {
 
@@ -40,7 +41,6 @@
     // * the list of all installed plugins (we're using their names,
     //    descriptions, mime types and file name extensions here)
     function _raw() {
-      // That string is the return value.
       return [
         navigator.userAgent,
         [ screen.height, screen.width, screen.colorDepth ].join("x"),
@@ -55,39 +55,11 @@
               return [ mt.type, mt.suffixes ].join("~");
             }).join(",")
           ].join("::");
-        }).join(";"),
-        _fonts().join('+')
+        }).join(";")
       ].join("###");
     }
 
-    // `_md5()` computes a MD5 hash using [md5-js](http://github.com/wbond/md5-js/).
-    function _md5() {
-      if ( typeof window.md5 === "function" ) {
-        // The return value is the hashed fingerprint string.
-        return md5( _raw() );
-      }
-      else {
-        // If `window.md5()` isn't available, an error is thrown.
-        throw "md5 unavailable, please get it from http://github.com/wbond/md5-js/";
-      }
-    }
-    
-    // `_fonts()` checks for the installed fonts on a system
-    // http://github.com/jasonbarry/fontlist.js/
-    function _fonts() {
-      if ( typeof $.fontlist === "function" ) {
-        // if fontlist.js is available, search for installed fonts
-        return $.fontlist();
-      }
-      else {
-        // else return empty array
-        return [];
-      }
-    }
-
-    // And, since I'm lazy, calling `$.fingerprint()` will return the hash
-    // right away, without the need for any other calls.
-    return _md5();
-  }
+    return _raw();
+  };
 
 })(jQuery);
